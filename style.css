@@ -1,0 +1,474 @@
+/* =========================
+   DESIGN TOKENS
+========================= */
+
+:root {
+    /* Backgrounds */
+    --bg: #f5f3ee;
+    --surface: #faf9f5;
+    --surface-hover: #ffffff;
+
+    /* Text */
+    --text: #22211f;
+    --text-secondary: #55514b;
+    --text-muted: #9a968e;
+    --text-light: #aaa69d;
+
+    /* Borders */
+    --border: #e2dfd7;
+    --border-light: #dfdcd4;
+    --divider: #e1ded6;
+
+    /* Board */
+    --board-bg: #e5e2da;
+
+    /* Player Colors */
+    --x-color: #3f5148;
+    --o-color: #9a6652;
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px rgba(40, 38, 32, 0.035);
+    --shadow-cell: 0 2px 5px rgba(40, 38, 32, 0.025);
+
+    /* Radius */
+    --radius-card: 14px;
+    --radius-board: 17px;
+    --radius-cell: 11px;
+}
+
+
+/* =========================
+   RESET
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   BODY
+========================= */
+
+body {
+    min-height: 100vh;
+     min-height: 100dvh;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--bg);
+    color: var(--text);
+
+    font-family: "DM Sans", sans-serif;
+}
+
+
+/* =========================
+   GAME
+========================= */
+
+.game {
+    width: min(390px, 90vw);
+
+    margin: auto;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+header {
+    text-align: center;
+
+    margin-bottom: 34px;
+}
+
+.small-title {
+    margin-top: 5px;
+    margin-bottom: 2px;
+
+    color: var(--text-light);
+
+    font-size: 10px;
+    font-weight: 600;
+
+    letter-spacing: 2.5px;
+}
+
+h1 {
+    font-family: "Playfair Display", serif;
+
+    color: var(--text);
+
+    font-size: 42px;
+    font-weight: 500;
+
+    letter-spacing: -1px;
+}
+
+
+/* =========================
+   PLAYERS
+========================= */
+
+.players {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    padding: 15px 18px;
+
+    background: var(--surface);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius-card);
+
+    box-shadow: var(--shadow-soft);
+}
+
+
+/* Player */
+
+.player {
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    color: var(--text-light);
+
+    transition: color 0.2s ease;
+}
+
+.player.active {
+    color: var(--text);
+}
+
+
+/* X / O symbols */
+
+.player-symbol {
+    font-size: 28px;
+    line-height: 1;
+}
+
+
+/* Player 1 - X */
+
+.player:first-child .player-symbol {
+    color: var(--x-color);
+}
+
+
+/* Player 2 - O */
+
+.player:last-child .player-symbol {
+    color: var(--o-color);
+}
+
+
+/* Player information */
+
+.player-info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+.player-info span {
+    font-size: 11px;
+}
+
+.player-info strong {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+/* Divider */
+
+.divider {
+    width: 1px;
+    height: 30px;
+
+    margin: 0 18px;
+
+    background: var(--divider);
+}
+
+
+/* =========================
+   TURN INDICATOR
+========================= */
+
+.turn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    margin: 24px 0 12px;
+}
+
+.turn-dot {
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: var(--text);
+}
+
+.turn p {
+    color: #77736c;
+
+    font-size: 12px;
+}
+
+
+
+/* =========================
+   BOARD
+========================= */
+
+.board {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 8px;
+
+    padding: 8px;
+
+    background: var(--board-bg);
+
+    border-radius: var(--radius-board);
+}
+
+
+/* =========================
+   CELLS
+========================= */
+
+.box {
+    width: 100%;
+
+    aspect-ratio: 1;
+
+    border: none;
+
+    border-radius: var(--radius-cell);
+
+    background: var(--surface);
+
+    color: var(--text);
+
+    font-family: "DM Sans", sans-serif;
+
+    font-size: 55px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    box-shadow: var(--shadow-cell);
+
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease;
+}
+
+
+/* Hover */
+
+.box:hover {
+    background: var(--surface-hover);
+
+    transform: translateY(-1px);
+}
+
+
+/* Click */
+
+.box:active {
+    transform: scale(0.97);
+}
+
+
+/* =========================
+   X & O
+========================= */
+
+.box.x {
+    color: var(--x-color);
+}
+
+.box.o {
+    color: var(--o-color);
+}
+
+.box.winning {
+    background: #eee9df;
+}
+
+/* =========================
+   BOTTOM
+========================= */
+
+.bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 16px;
+}
+
+
+#reset-btn, #reset-score-btn {
+    padding: 5px;
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--text-secondary);
+
+    font-family: inherit;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: color 0.2s ease;
+}
+
+#reset-btn:hover {
+    color: #111;
+}
+
+
+#reset-score-btn {
+    color: var(--text-muted);
+}
+
+#reset-score-btn:hover {
+    color: var(--text);
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    width: min(390px, 90vw);
+
+    margin: auto auto 0;
+
+    padding: 18px 0;
+
+    border-top: 1px solid var(--border-light);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+}
+
+
+/* Made by */
+
+.footer-left {
+    display: flex;
+    align-items: center;
+
+    gap: 4px;
+}
+
+.footer-left strong {
+    color: var(--text-secondary);
+
+    font-weight: 600;
+}
+
+
+/* Social links */
+
+.social-links {
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+}
+
+.social-links a {
+    color: #8b877f;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.social-links a:hover {
+    color: var(--text);
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 420px) {
+
+    .game {
+        width: 88vw;
+    }
+
+
+    h1 {
+        font-size: 38px;
+    }
+
+
+    .players {
+        padding: 13px 15px;
+    }
+
+
+    .divider {
+        margin: 0 13px;
+    }
+
+
+    .box {
+        font-size: 48px;
+    }
+
+
+    .footer {
+        flex-direction: column;
+
+        gap: 12px;
+
+        text-align: center;
+    }
+
+
+    .social-links {
+        gap: 14px;
+    }
+
+}

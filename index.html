@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Tic Tac Toe — Arden Codes</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- =========================
+         GAME
+    ========================== -->
+
+    <main class="game">
+
+        <!-- Header -->
+
+        <header>
+            <p class="small-title">A LITTLE GAME</p>
+            <h1>Tic Tac Toe</h1>
+        </header>
+
+
+        <!-- Players -->
+
+        <section class="players">
+
+            <div class="player active" id="playerX">
+
+                <span class="player-symbol">×</span>
+
+                <div class="player-info">
+                    <span>Player 1</span>
+                    <strong id="xScore">0</strong>
+                </div>
+
+            </div>
+
+
+            <div class="divider"></div>
+
+
+            <div class="player" id="playerO">
+
+                <span class="player-symbol">○</span>
+
+                <div class="player-info">
+                    <span>Player 2</span>
+                    <strong id="oScore">0</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Turn -->
+
+        <div class="turn">
+            <p id="msg">X's turn</p>
+        </div>
+
+
+        <!-- Board -->
+
+        <section class="board">
+
+            <button class="box" aria-label="Top left"></button>
+            <button class="box" aria-label="Top center"></button>
+            <button class="box" aria-label="Top right"></button>
+
+            <button class="box" aria-label="Middle left"></button>
+            <button class="box" aria-label="Center"></button>
+            <button class="box" aria-label="Middle right"></button>
+
+            <button class="box" aria-label="Bottom left"></button>
+            <button class="box" aria-label="Bottom center"></button>
+            <button class="box" aria-label="Bottom right"></button>
+
+        </section>
+
+
+        <!-- Bottom Controls -->
+
+        <div class="bottom">
+            <button id="reset-score-btn">
+                Reset score
+            </button>
+
+            <button id="reset-btn">
+                New game
+            </button>
+        </div>
+
+    </main>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer class="footer">
+
+        <div class="footer-left">
+            <span>Made by</span>
+            <a href="https://ardencodes.netlify.app/" aria-label="Arden Codes" target="_blank"><strong>Arden
+                    Codes</strong></a>
+        </div>
+
+
+        <nav class="social-links">
+
+            <a href="https://github.com/arden-codes" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                GitHub
+            </a>
+
+            <a href="https://www.instagram.com/arden.codes" aria-label="Instagram" target="_blank"
+                rel="noopener noreferrer">
+                Instagram
+            </a>
+
+            <a href="https://www.linkedin.com/in/arden-codes-367623431/" aria-label="LinkedIn" target="_blank"
+                rel="noopener noreferrer">
+                LinkedIn
+            </a>
+
+            <a href="https://x.com/ardencodes" aria-label="X" target="_blank" rel="noopener noreferrer">
+                X (Twitter)
+            </a>
+
+        </nav>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
