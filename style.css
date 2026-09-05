@@ -3,37 +3,34 @@
 ========================= */
 
 :root {
-    /* Backgrounds */
+
+    /* Background */
     --bg: #f5f3ee;
+
+    /* Surfaces */
     --surface: #faf9f5;
     --surface-hover: #ffffff;
 
     /* Text */
     --text: #22211f;
     --text-secondary: #55514b;
-    --text-muted: #9a968e;
+    --text-muted: #918d85;
     --text-light: #aaa69d;
 
     /* Borders */
     --border: #e2dfd7;
-    --border-light: #dfdcd4;
-    --divider: #e1ded6;
-
-    /* Board */
-    --board-bg: #e5e2da;
+    --border-light: #dedbd3;
 
     /* Player Colors */
     --x-color: #3f5148;
     --o-color: #9a6652;
 
     /* Shadows */
-    --shadow-soft: 0 4px 20px rgba(40, 38, 32, 0.035);
-    --shadow-cell: 0 2px 5px rgba(40, 38, 32, 0.025);
+    --shadow-soft:
+        0 3px 16px rgba(40, 38, 32, 0.035);
 
     /* Radius */
-    --radius-card: 14px;
-    --radius-board: 17px;
-    --radius-cell: 11px;
+    --radius: 11px;
 }
 
 
@@ -53,8 +50,8 @@
 ========================= */
 
 body {
-    min-height: 100vh;
-     min-height: 100dvh;
+
+    min-height: 100dvh;
 
     display: flex;
     flex-direction: column;
@@ -63,17 +60,37 @@ body {
     color: var(--text);
 
     font-family: "DM Sans", sans-serif;
+
 }
 
 
 /* =========================
-   GAME
+   APP
 ========================= */
 
-.game {
-    width: min(390px, 90vw);
+.app {
 
-    margin: auto;
+    flex: 1;
+
+    min-height: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px 0;
+
+}
+
+
+/* =========================
+   SETUP
+========================= */
+
+.setup-screen {
+
+    width: min(330px, 86vw);
+
 }
 
 
@@ -82,32 +99,273 @@ body {
 ========================= */
 
 header {
+
     text-align: center;
 
-    margin-bottom: 34px;
 }
 
+
 .small-title {
-    margin-top: 5px;
-    margin-bottom: 2px;
+
+    margin-bottom: 6px;
 
     color: var(--text-light);
 
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 600;
 
-    letter-spacing: 2.5px;
+    letter-spacing: 3px;
+
 }
 
+
 h1 {
-    font-family: "Playfair Display", serif;
 
     color: var(--text);
 
-    font-size: 42px;
+    font-family: "Playfair Display", serif;
+
+    font-size: 40px;
     font-weight: 500;
 
-    letter-spacing: -1px;
+    line-height: 1;
+
+    letter-spacing: -1.2px;
+
+}
+
+
+/* =========================
+   SETUP CONTENT
+========================= */
+
+.setup {
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+    margin-top: 30px;
+
+}
+
+
+/* =========================
+   SETTING
+========================= */
+
+.setting {
+
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+
+}
+
+
+.setting + .setting {
+
+    margin-top: 21px;
+
+}
+
+
+.setting-label {
+
+    margin-bottom: 8px;
+
+    color: var(--text-muted);
+
+    font-size: 11px;
+    font-weight: 500;
+
+}
+
+
+/* =========================
+   SELECTOR
+========================= */
+
+.selector {
+
+    width: 100%;
+
+    display: flex;
+
+    padding: 3px;
+
+    background: #eae7e0;
+
+    border-radius: 10px;
+
+}
+
+
+/* =========================
+   OPTIONS
+========================= */
+
+.option {
+
+    flex: 1;
+
+    height: 34px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: transparent;
+
+    color: var(--text-muted);
+
+    font-family: inherit;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.option.active {
+
+    background: var(--surface);
+
+    color: var(--text);
+
+    box-shadow:
+        0 1px 3px rgba(40, 38, 32, 0.07);
+
+}
+
+
+/* =========================
+   SYMBOL SELECTOR
+========================= */
+
+#symbol-setting {
+
+    width: 230px;
+
+}
+
+
+.symbol-option {
+
+    font-size: 13px;
+
+}
+
+
+/* X */
+
+#choose-x {
+
+    color: var(--x-color);
+
+}
+
+
+/* O */
+
+#choose-o {
+
+    color: var(--o-color);
+
+}
+
+
+/* Active selected symbol */
+
+#choose-x.active,
+#choose-o.active {
+
+    color: var(--text);
+
+}
+
+
+/* =========================
+   START BUTTON
+========================= */
+
+#start-btn {
+
+    width: 100%;
+
+    height: 42px;
+
+    margin-top: 28px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: var(--text);
+
+    color: var(--surface);
+
+    font-family: inherit;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        background 0.2s ease;
+
+}
+
+
+#start-btn:hover {
+
+    background: #302e2b;
+
+}
+
+
+#start-btn:active {
+
+    transform: scale(0.985);
+
+}
+
+
+/* =========================
+   GAME SCREEN
+========================= */
+
+.game-screen {
+
+    width: min(360px, 88vw);
+
+}
+
+
+/* =========================
+   GAME HEADER
+========================= */
+
+.game-header {
+
+    text-align: center;
+
+    margin-bottom: 16px;
+
 }
 
 
@@ -116,125 +374,129 @@ h1 {
 ========================= */
 
 .players {
+
     width: 100%;
 
     display: flex;
     align-items: center;
 
-    padding: 15px 18px;
+    padding: 11px 15px;
 
     background: var(--surface);
 
     border: 1px solid var(--border);
 
-    border-radius: var(--radius-card);
+    border-radius: 13px;
 
     box-shadow: var(--shadow-soft);
+
 }
 
 
-/* Player */
-
 .player {
+
     flex: 1;
 
     display: flex;
     align-items: center;
 
-    gap: 11px;
+    gap: 9px;
 
     color: var(--text-light);
 
     transition: color 0.2s ease;
+
 }
+
 
 .player.active {
+
     color: var(--text);
+
 }
 
-
-/* X / O symbols */
 
 .player-symbol {
-    font-size: 28px;
+
+    font-size: 24px;
+
     line-height: 1;
+
 }
 
-
-/* Player 1 - X */
 
 .player:first-child .player-symbol {
+
     color: var(--x-color);
+
 }
 
-
-/* Player 2 - O */
 
 .player:last-child .player-symbol {
+
     color: var(--o-color);
+
 }
 
 
-/* Player information */
-
 .player-info {
+
     display: flex;
     flex-direction: column;
 
-    gap: 2px;
+    gap: 1px;
+
 }
+
 
 .player-info span {
-    font-size: 11px;
+
+    font-size: 10px;
+
 }
+
 
 .player-info strong {
-    font-size: 15px;
+
+    font-size: 14px;
     font-weight: 600;
+
 }
 
 
-/* Divider */
-
 .divider {
+
     width: 1px;
-    height: 30px;
+    height: 26px;
 
-    margin: 0 18px;
+    margin: 0 15px;
 
-    background: var(--divider);
+    background: #e1ded6;
+
 }
 
 
 /* =========================
-   TURN INDICATOR
+   TURN
 ========================= */
 
 .turn {
+
     display: flex;
-    align-items: center;
     justify-content: center;
 
-    gap: 7px;
+    margin: 10px 0 7px;
 
-    margin: 24px 0 12px;
 }
 
-.turn-dot {
-    width: 5px;
-    height: 5px;
-
-    border-radius: 50%;
-
-    background: var(--text);
-}
 
 .turn p {
-    color: #77736c;
 
-    font-size: 12px;
+    color: var(--text-secondary);
+
+    font-size: 11px;
+
 }
-
 
 
 /* =========================
@@ -242,32 +504,35 @@ h1 {
 ========================= */
 
 .board {
+
     display: grid;
 
     grid-template-columns: repeat(3, 1fr);
 
-    gap: 8px;
+    gap: 6px;
 
-    padding: 8px;
+    padding: 6px;
 
-    background: var(--board-bg);
+    background: #e5e2da;
 
-    border-radius: var(--radius-board);
+    border-radius: 15px;
+
 }
 
 
 /* =========================
-   CELLS
+   BOX
 ========================= */
 
 .box {
+
     width: 100%;
 
     aspect-ratio: 1;
 
     border: none;
 
-    border-radius: var(--radius-cell);
+    border-radius: 9px;
 
     background: var(--surface);
 
@@ -275,65 +540,76 @@ h1 {
 
     font-family: "DM Sans", sans-serif;
 
-    font-size: 55px;
+    font-size: 46px;
     font-weight: 500;
 
     cursor: pointer;
 
-    box-shadow: var(--shadow-cell);
+    box-shadow:
+        0 2px 5px rgba(40, 38, 32, 0.025);
 
     transition:
         transform 0.15s ease,
         background 0.15s ease;
+
 }
 
 
-/* Hover */
-
 .box:hover {
+
     background: var(--surface-hover);
 
     transform: translateY(-1px);
+
 }
 
-
-/* Click */
 
 .box:active {
+
     transform: scale(0.97);
+
 }
 
-
-/* =========================
-   X & O
-========================= */
 
 .box.x {
+
     color: var(--x-color);
+
 }
+
 
 .box.o {
+
     color: var(--o-color);
+
 }
+
 
 .box.winning {
+
     background: #eee9df;
+
 }
 
+
 /* =========================
-   BOTTOM
+   GAME CONTROLS
 ========================= */
 
 .bottom {
+
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    margin-top: 16px;
+    margin-top: 9px;
+
 }
 
 
-#reset-btn, #reset-score-btn {
+#new-game-btn,
+#reset-score-btn {
+
     padding: 5px;
 
     border: none;
@@ -344,38 +620,75 @@ h1 {
 
     font-family: inherit;
 
-    font-size: 13px;
+    font-size: 11px;
     font-weight: 500;
 
     cursor: pointer;
 
-    transition: color 0.2s ease;
-}
-
-#reset-btn:hover {
-    color: #111;
 }
 
 
 #reset-score-btn {
+
     color: var(--text-muted);
+
 }
 
+
+#new-game-btn:hover,
 #reset-score-btn:hover {
+
     color: var(--text);
+
 }
 
+
+/* =========================
+   CHANGE SETTINGS
+========================= */
+
+.change-settings {
+
+    display: block;
+
+    margin: 5px auto 0;
+
+    padding: 4px;
+
+    border: none;
+
+    background: transparent;
+
+    color: var(--text-light);
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    cursor: pointer;
+
+}
+
+
+.change-settings:hover {
+
+    color: var(--text-secondary);
+
+}
 
 /* =========================
    FOOTER
 ========================= */
 
 .footer {
-    width: min(390px, 90vw);
 
-    margin: auto auto 0;
+    flex-shrink: 0;
 
-    padding: 18px 0;
+    width: min(450px, 86vw);
+
+    margin: 0 auto;
+
+    padding: 12px 0;
 
     border-top: 1px solid var(--border-light);
 
@@ -385,90 +698,189 @@ h1 {
 
     color: var(--text-muted);
 
-    font-size: 11px;
+    font-size: 10px;
+
 }
 
 
-/* Made by */
-
 .footer-left {
+
     display: flex;
     align-items: center;
 
     gap: 4px;
+
 }
 
+
+.footer-left a {
+
+    color: inherit;
+
+    text-decoration: none;
+
+}
+
+
 .footer-left strong {
+
     color: var(--text-secondary);
 
     font-weight: 600;
+
 }
 
 
-/* Social links */
-
 .social-links {
+
     display: flex;
     align-items: center;
 
-    gap: 18px;
+    gap: 15px;
+
 }
 
+
 .social-links a {
-    color: #8b877f;
+
+    color: var(--text-muted);
 
     text-decoration: none;
 
     transition: color 0.2s ease;
+
 }
 
+
 .social-links a:hover {
+
     color: var(--text);
+
 }
 
 
 /* =========================
-   MOBILE
+   HIDDEN
 ========================= */
 
-@media (max-width: 420px) {
+[hidden] {
 
-    .game {
-        width: 88vw;
+    display: none !important;
+
+}
+
+
+/* =========================
+   SMALL PHONES
+========================= */
+
+@media (max-width: 360px) {
+
+    .setup-screen {
+
+        width: 84vw;
+
     }
 
 
     h1 {
-        font-size: 38px;
+
+        font-size: 36px;
+
     }
 
 
-    .players {
-        padding: 13px 15px;
+    .setup {
+
+        margin-top: 25px;
+
     }
 
 
-    .divider {
-        margin: 0 13px;
+    .setting + .setting {
+
+        margin-top: 17px;
+
     }
 
 
-    .box {
-        font-size: 48px;
+    #symbol-setting {
+
+        width: 215px;
+
+    }
+
+
+    #start-btn {
+
+        margin-top: 23px;
+
     }
 
 
     .footer {
-        flex-direction: column;
 
-        gap: 12px;
+        width: 84vw;
 
-        text-align: center;
+        font-size: 9px;
+
     }
 
 
     .social-links {
-        gap: 14px;
+
+        gap: 10px;
+
+    }
+
+}
+
+
+/* =========================
+   SHORT MOBILE SCREENS
+========================= */
+
+@media (max-height: 700px) {
+
+    .app {
+
+        padding: 12px 0;
+
+    }
+
+
+    h1 {
+
+        font-size: 35px;
+
+    }
+
+
+    .setup {
+
+        margin-top: 21px;
+
+    }
+
+
+    .setting + .setting {
+
+        margin-top: 14px;
+
+    }
+
+
+    #start-btn {
+
+        margin-top: 20px;
+
+    }
+
+
+    .footer {
+
+        padding: 8px 0;
+
     }
 
 }
