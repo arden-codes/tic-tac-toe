@@ -19,90 +19,188 @@
 
 <body>
 
-    <!-- =========================
-         GAME
-    ========================== -->
+    <main class="app">
 
-    <main class="game">
+        <!-- =========================
+             SETUP SCREEN
+        ========================== -->
 
-        <!-- Header -->
+        <section class="setup-screen" id="setup-screen">
 
-        <header>
-            <p class="small-title">A LITTLE GAME</p>
-            <h1>Tic Tac Toe</h1>
-        </header>
+            <header>
+                <p class="small-title">A LITTLE GAME</p>
+                <h1>Tic Tac Toe</h1>
+            </header>
 
 
-        <!-- Players -->
+            <div class="setup">
 
-        <section class="players">
+                <!-- Game Mode -->
 
-            <div class="player active" id="playerX">
+                <div class="setting">
 
-                <span class="player-symbol">×</span>
+                    <span class="setting-label">
+                        Choose game mode
+                    </span>
 
-                <div class="player-info">
-                    <span>Player 1</span>
-                    <strong id="xScore">0</strong>
+                    <div class="selector">
+
+                        <button class="option active" id="computer-mode-btn">
+                            Computer
+                        </button>
+
+                        <button class="option" id="two-player-mode-btn">
+                            2 Players
+                        </button>
+
+                    </div>
+
                 </div>
 
-            </div>
 
+                <!-- Player Symbol -->
 
-            <div class="divider"></div>
+                <div class="setting" id="symbol-setting">
 
+                    <span class="setting-label">
+                        Play as
+                    </span>
 
-            <div class="player" id="playerO">
+                    <div class="selector">
 
-                <span class="player-symbol">○</span>
+                        <button class="option symbol-option active" id="choose-x">
+                            X
+                        </button>
 
-                <div class="player-info">
-                    <span>Player 2</span>
-                    <strong id="oScore">0</strong>
+                        <button class="option symbol-option" id="choose-o">
+                            O
+                        </button>
+
+                    </div>
+
                 </div>
+
+
+                <!-- Start -->
+
+                <button id="start-btn">
+                    Start Game
+                </button>
 
             </div>
 
         </section>
 
 
-        <!-- Turn -->
+        <!-- =========================
+             GAME SCREEN
+        ========================== -->
 
-        <div class="turn">
-            <p id="msg">X's turn</p>
-        </div>
+        <section class="game-screen" id="game-screen" hidden>
+
+            <header class="game-header">
+
+                <p class="small-title">A LITTLE GAME</p>
+
+                <h1>Tic Tac Toe</h1>
+
+            </header>
 
 
-        <!-- Board -->
+            <!-- Players -->
 
-        <section class="board">
+            <section class="players">
 
-            <button class="box" aria-label="Top left"></button>
-            <button class="box" aria-label="Top center"></button>
-            <button class="box" aria-label="Top right"></button>
+                <div class="player active" id="playerX">
 
-            <button class="box" aria-label="Middle left"></button>
-            <button class="box" aria-label="Center"></button>
-            <button class="box" aria-label="Middle right"></button>
+                    <span class="player-symbol">×</span>
 
-            <button class="box" aria-label="Bottom left"></button>
-            <button class="box" aria-label="Bottom center"></button>
-            <button class="box" aria-label="Bottom right"></button>
+                    <div class="player-info">
+                        <span id="x-player-name">
+                            Player 1
+                        </span>
+
+                        <strong id="xScore">
+                            0
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="divider"></div>
+
+
+                <div class="player" id="playerO">
+
+                    <span class="player-symbol">○</span>
+
+                    <div class="player-info">
+                        <span id="o-player-name">
+                            Player 2
+                        </span>
+
+                        <strong id="oScore">
+                            0
+                        </strong>
+                    </div>
+
+                </div>
+
+            </section>
+            
+            <!-- Turn -->
+
+            <div class="turn">
+
+                <p id="msg">
+                    X's turn
+                </p>
+
+            </div>
+
+
+            <!-- Board -->
+
+            <section class="board">
+
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+
+                <button class="box"></button>
+                <button class="box"></button>
+                <button class="box"></button>
+
+            </section>
+
+
+            <!-- Controls -->
+
+            <div class="bottom">
+
+                <button id="reset-score-btn">
+                    Reset score
+                </button>
+
+                <button id="new-game-btn">
+                    New game
+                </button>
+
+            </div>
+
+
+            <!-- Change Settings -->
+
+            <button id="change-settings-btn" class="change-settings">
+                Change settings
+            </button>
 
         </section>
-
-
-        <!-- Bottom Controls -->
-
-        <div class="bottom">
-            <button id="reset-score-btn">
-                Reset score
-            </button>
-
-            <button id="reset-btn">
-                New game
-            </button>
-        </div>
 
     </main>
 
@@ -114,30 +212,34 @@
     <footer class="footer">
 
         <div class="footer-left">
+
             <span>Made by</span>
-            <a href="https://ardencodes.netlify.app/" aria-label="Arden Codes" target="_blank"><strong>Arden
-                    Codes</strong></a>
+
+            <a href="https://ardencodes.netlify.app/" target="_blank" rel="noopener noreferrer">
+
+                <strong>Arden Codes</strong>
+
+            </a>
+
         </div>
 
 
         <nav class="social-links">
 
-            <a href="https://github.com/arden-codes" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+            <a href="https://github.com/arden-codes" target="_blank" rel="noopener noreferrer">
                 GitHub
             </a>
 
-            <a href="https://www.instagram.com/arden.codes" aria-label="Instagram" target="_blank"
-                rel="noopener noreferrer">
+            <a href="https://www.instagram.com/arden.codes" target="_blank" rel="noopener noreferrer">
                 Instagram
             </a>
 
-            <a href="https://www.linkedin.com/in/arden-codes-367623431/" aria-label="LinkedIn" target="_blank"
-                rel="noopener noreferrer">
+            <a href="https://www.linkedin.com/in/arden-codes-367623431/" target="_blank" rel="noopener noreferrer">
                 LinkedIn
             </a>
 
-            <a href="https://x.com/ardencodes" aria-label="X" target="_blank" rel="noopener noreferrer">
-                X (Twitter)
+            <a href="https://x.com/ardencodes" target="_blank" rel="noopener noreferrer">
+                X
             </a>
 
         </nav>

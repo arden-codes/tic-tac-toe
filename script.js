@@ -1,17 +1,39 @@
+// -------Game Variables -------
 let boxes = document.querySelectorAll('.box');
-let resetScoreBtn = document.getElementById('reset-score-btn');
-let resetBtn = document.getElementById('reset-btn');
 
-// Player
-let playerX = true;
+// ------- Button Variables -------
+let computerModeBtn = document.querySelector('#computer-mode-btn');
+let twoPlayersModeBtn = document.querySelector('#two-player-mode-btn');
 
-// Scores
+let chooseXBtn = document.querySelector('#choose-x');
+let chooseOBtn = document.querySelector('#choose-o');
+let startBtn = document.querySelector('#start-btn');
+let changeSettingsBtn = document.querySelector('#change-settings-btn');
+let newGameBtn = document.querySelector('#new-game-btn');
+let resetScoreBtn = document.querySelector('#reset-score-btn');
+
+// ------- Other Variables -------
+let symbolSetting = document.querySelector('#symbol-setting');
+let msg = document.querySelector('#msg');
+
+// -------Global Variabled -------
+let gameOver = false;
+
+let gameMode = 'computer'; // or twoPlayers
+
+let currentPlayer = 'user'; //or computer, // playerX or playerO
+
+let currentSymbol = 'X';
+
+let playerSymbol = 'X';
+let computerSymbol = 'O';
+
 let xScore = 0;
 let oScore = 0;
 
-let gameOver = false;
+let computerTimer;
+const computerThinkingTime = 500;
 
-// Winning Patterns
 const winPatterns = [
     [0, 1, 2],
     [3, 4, 5],
@@ -25,38 +47,87 @@ const winPatterns = [
     [2, 4, 6]
 ];
 
-// ----------------------------
-// Player Functions
-// ----------------------------
 
-function changeActivePlayer() {
+//-----------------------------
+// Button Functions
+//-----------------------------
+function selectComputerMode() {
+    computerModeBtn.classList.add('active');
+    twoPlayersModeBtn.classList.remove('active');
 
-    const playerXClass = document.querySelector('#playerX').classList;
-    const playerOClass = document.querySelector('#playerO').classList;
+    gameMode = 'computer';
+    chooseX();
 
-    if (playerX) {
-        playerXClass.add('active');
-        playerOClass.remove('active')
-    } else {
-        playerOClass.add('active');
-        playerXClass.remove('active');
-    };
+    symbolSetting.hidden = false;
 };
 
-function changePlayersTurn() {
-    if (playerX) {
-        document.querySelector('#msg').innerText = "X's turn";
-    } else {
-        document.querySelector('#msg').innerText = "O's turn";
-    };
+function selectTwoPlayersMode() {
+    twoPlayersModeBtn.classList.add('active');
+    computerModeBtn.classList.remove('active');
+
+    gameMode = 'twoPlayers';
+    currentPlayer = 'playerX';
+
+    document.querySelector('#x-player-name').innerText = 'Player 1';
+    document.querySelector('#o-player-name').innerText = 'Player 2';
+
+    symbolSetting.hidden = true;
+};
+
+function chooseX() {
+    chooseXBtn.classList.add('active');
+    chooseOBtn.classList.remove('active')
+
+    currentPlayer = 'user';
+    playerSymbol = 'X';
+    computerSymbol = 'O';
+
+    document.querySelector('#x-player-name').innerText = 'You';
+    document.querySelector('#o-player-name').innerText = 'Computer';
+};
+
+function chooseO() {
+    chooseOBtn.classList.add('active');
+    chooseXBtn.classList.remove('active')
+
+    currentPlayer = 'computer';
+    playerSymbol = 'O';
+    computerSymbol = 'X';
+
+    document.querySelector('#x-player-name').innerText = 'Computer';
+    document.querySelector('#o-player-name').innerText = 'You';
+};
+
+function changeSettings() {
+    clearTimeout(computerTimer);
+    document.querySelector('#setup-screen').hidden = false;
+    document.querySelector('#game-screen').hidden = true;
+
+    fullReset();
 }
 
+function fullReset() {
+    resetScore();
+    resetBoard();
+};
 
-// ----------------------------
-// Game Functions
-// ----------------------------
-function resetGame() {
-    playerX = true;
+function resetScore() {
+    clearTimeout(computerTimer);
+    xScore = 0;
+    oScore = 0;
+
+    document.getElementById("xScore").innerText = xScore;
+    document.getElementById("oScore").innerText = oScore;
+};
+
+function resetBoard() {
+    clearTimeout(computerTimer);
+    if (gameMode === 'computer') {
+        currentPlayer = playerSymbol === 'X' ? 'user' : 'computer';
+    } else {
+        currentPlayer = 'playerX';
+    };
+
     gameOver = false;
 
     for (let box of boxes) {
@@ -64,6 +135,7 @@ function resetGame() {
         box.classList.remove('x', 'o', 'winning');
     };
 
+    currentSymbol = 'X';
     msg.innerText = "X's turn";
 
     document.querySelector('#playerX').classList.add('active');
@@ -72,13 +144,18 @@ function resetGame() {
     enableBoxes();
 };
 
-function resetScore() {
-    xScore = 0;
-    oScore = 0;
-    
-    document.getElementById("xScore").innerText = xScore;
-    document.getElementById("oScore").innerText = oScore;
-};
+
+//-----------------------------
+// Game Functions
+//-----------------------------
+function startGame() {
+    currentSymbol = 'X';
+
+    document.querySelector('#setup-screen').hidden = true;
+    document.querySelector('#game-screen').hidden = false;
+
+    startTurn();
+}
 
 function enableBoxes() {
     for (let box of boxes) {
@@ -102,11 +179,6 @@ function updateScore(winner) {
     }
 };
 
-function showWinner(winner) {
-    msg.innerText = `${winner} Wins!`;
-    disableBoxes();
-}
-
 function checkWin() {
     for (let pattern of winPatterns) {
         let [a, b, c] = pattern;
@@ -116,11 +188,12 @@ function checkWin() {
         let C = boxes[c];
 
         if (
-            A.innerText !== "" && 
-            A.innerText === B.innerText && 
+            A.innerText !== "" &&
+            A.innerText === B.innerText &&
             B.innerText === C.innerText
         ) {
-            showWinner(A.innerText);
+            msg.innerText = `${A.innerText} Wins!`;
+            disableBoxes();
             updateScore(A.innerText);
 
             A.classList.add('winning');
@@ -141,56 +214,209 @@ function checkWin() {
 
 };
 
-function handleClick(box) {
-    if (playerX) {
-        box.innerText = 'X';
-        box.classList.add("x");
-        playerX = false;
-    } else {
-        box.innerText = 'O';
-        box.classList.add("o");
-        playerX = true;
-    };
+function markBox(box) {
+    box.innerText = `${currentSymbol}`;
+    box.classList.add(`${currentSymbol.toLowerCase()}`);
 
     box.disabled = true;
+};
+
+function changePlayersTurn() {
+    if (gameMode === 'computer') {
+        currentPlayer = currentPlayer === 'computer' ? 'user' : 'computer';
+    } else {
+        currentPlayer = currentPlayer === 'playerX' ? 'playerO' : 'playerX';
+    };
+
+    let playerXClass = document.querySelector('#playerX').classList;
+    let playerOClass = document.querySelector('#playerO').classList;
+
+    if (currentSymbol === 'X') {
+        playerXClass.remove('active');
+        playerOClass.add('active');
+
+        msg.innerText = "O's turn";
+        currentSymbol = 'O';
+
+    } else {
+        playerXClass.add('active');
+        playerOClass.remove('active');
+
+        msg.innerText = "X's turn";
+        currentSymbol = 'X';
+    }
+};
+// --------------------------------------
+function startTurn() {
+    if (currentPlayer === 'computer') {
+        computerMove();
+    };
+};
+
+function afterMove() {
+    checkWin();
+
+    if (gameOver) { return };
+
+    changePlayersTurn()
+
+    if (currentPlayer === 'computer') {
+        computerTimer = setTimeout(() => startTurn(), computerThinkingTime);
+    }
+};
+
+//-----------------------------
+// Handle Click 
+//-----------------------------
+function handleClick(box) {
+    markBox(box);
 
     checkWin();
 
     if (gameOver) { return };
 
-    changeActivePlayer();
     changePlayersTurn();
 };
 
 
+// ------------- Computer Mode Functions ------------- 
+function winningMove() {
+    for (let pattern of winPatterns) {
 
+        let [a, b, c] = pattern;
 
-// ----------------------------
-// Game
-// ----------------------------
+        let boxA = boxes[a];
+        let boxB = boxes[b];
+        let boxC = boxes[c];
 
-function game() {
-    boxes.forEach((box) => {
-        box.addEventListener('click', () => handleClick(box))
-    });
+        let A = boxA.innerText;
+        let B = boxB.innerText;
+        let C = boxC.innerText;
 
-    resetScoreBtn.addEventListener("click", () => {
-        resetScore();
-        resetGame();
-    });
+        if (
+            (A === '' && B === '') ||
+            (A === '' && C === '') ||
+            (B === '' && C === '')
+        ) {
+            continue;
+        }
 
-    resetBtn.addEventListener("click", resetGame);
+        if (A === '' && B === computerSymbol && C === computerSymbol) {
+            return boxA;
+
+        } else if (B === '' && A === computerSymbol && C === computerSymbol) {
+            return boxB;
+
+        } else if (C === '' && A === computerSymbol && B === computerSymbol) {
+            return boxC;
+
+        } else {
+            continue;
+        };
+    };
+
+    return null;
 }
 
 
-// ----------------------------
-// RUN
-// ----------------------------
+function blockOpponent() {
+    for (let pattern of winPatterns) {
+        let [a, b, c] = pattern;
 
-game()
+        let boxA = boxes[a];
+        let boxB = boxes[b];
+        let boxC = boxes[c];
+
+        let A = boxA.innerText;
+        let B = boxB.innerText;
+        let C = boxC.innerText;
+
+        if (
+            (A === '' && B === '') ||
+            (A === '' && C === '') ||
+            (B === '' && C === '')
+        ) {
+            continue;
+        }
+
+        if (A === '' && B === playerSymbol && C === playerSymbol) {
+            return boxA;
+
+        } else if (B === '' && A === playerSymbol && C === playerSymbol) {
+            return boxB;
+
+        } else if (C === '' && A === playerSymbol && B === playerSymbol) {
+            return boxC;
+
+        } else {
+            continue;
+        };
+    };
+
+    return null;
+}
 
 
+function computerMove() {
+    let emptyBoxes = [];
 
+    for (let box of boxes) {
+        if (box.innerText === '') {
+            emptyBoxes.push(box);
+        }
+    }
 
+    let targetBox = null;
 
+    targetBox = winningMove();
 
+    if (targetBox === null) {
+        targetBox = blockOpponent();
+    }
+
+    if (targetBox === null) {
+        let randomIndex = Math.floor(Math.random() * emptyBoxes.length);
+        targetBox = emptyBoxes[randomIndex];
+    }
+
+    markBox(targetBox)
+    afterMove();
+};
+
+// ------------- Main Function ------------- 
+function main() {
+    boxes.forEach((box) => {
+        box.addEventListener('click', () => {
+            if (gameMode === 'twoPlayers') {
+                handleClick(box)
+
+            } else if (gameMode === 'computer' && currentPlayer === 'user') {
+                markBox(box);
+
+                afterMove();
+            } else { return };
+        });
+    });
+};
+
+// ------------- Calling ------------- 
+computerModeBtn.addEventListener('click', selectComputerMode);
+twoPlayersModeBtn.addEventListener('click', selectTwoPlayersMode);
+chooseXBtn.addEventListener('click', chooseX);
+chooseOBtn.addEventListener('click', chooseO);
+startBtn.addEventListener('click', startGame);
+
+newGameBtn.addEventListener('click', () => {
+    resetBoard();
+    startTurn();
+});
+
+resetScoreBtn.addEventListener('click', () => {
+    fullReset();
+    startTurn();
+});
+
+changeSettingsBtn.addEventListener('click', changeSettings);
+
+selectComputerMode();
+main();
